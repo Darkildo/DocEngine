@@ -1,13 +1,16 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:win32/win32.dart' as winapi;
 
 class ProcessScanner {
   StreamController<ProcessInfo>? _controller;
 
   Stream<ProcessInfo> startScan() async* {
-    _controller = _startScan();
+    _controller = await _startScan();
 
-    return _controller?.stream;
+    await for (var e in _controller!.stream) {
+      yield e;
+    }
   }
 
   Future<bool> stopScan() async {
@@ -15,5 +18,9 @@ class ProcessScanner {
     return true;
   }
 
-  StreamController<ProcessInfo> _startScan() async {}
+  Future<StreamController<ProcessInfo>> _startScan() async {
+    final _streamController = StreamController<ProcessInfo>();
+
+    return _streamController;
+  }
 }
