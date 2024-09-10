@@ -13,7 +13,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    _home = HomeBloc();
+    _home = HomeBloc(ProcessScanner());
   }
 
   @override
